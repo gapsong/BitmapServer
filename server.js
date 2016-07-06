@@ -22,15 +22,12 @@ app.get('/bild', function(req, res) {
 });
 
 app.post('/bild', function(req, res) {
-    console.log("got the pic");
+    console.log(req.body.bild);
     fs.writeFile(__dirname + '/public/data.js',
         "var data = " + JSON.stringify({
             bild: new String(req.body.bild)
         })
     );
-
-
-
     res.send('Server received String');
 });
 
