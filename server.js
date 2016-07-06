@@ -1,11 +1,16 @@
 var express = require('express');
 var bodyParser = require("body-parser");
 var app = express();
-var fs = require('fs');
+var fs = require('fs'),
+    url = require('url');
 
 app.use('/', express.static(__dirname + '/'));
+app.use(bodyParser.json({
+    limit: '5 mb' //max. size
+}));
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: false,
+    limit: '5mb' //max. size
 }));
 
 app.get('/', function(req, res) {
@@ -17,7 +22,14 @@ app.get('/bild', function(req, res) {
 });
 
 app.post('/bild', function(req, res) {
-    console.log(req.body);
+    console.log("got the pic");
+    fs.writeFile(__dirname + '/public/data.js',
+        "var data = " + JSON.stringify({
+            bild: new String(req.body.bild)
+        })
+    );
+
+
 
     res.send('Server received String');
 });
