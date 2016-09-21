@@ -80,9 +80,9 @@ app.get('/bild', function(req, res) {
     res.send(jsonBild.bild);
 });
 
-app.get('/test', function(req, res) {
-    insertDocuments()
-    res.send('geht');
+app.post('/test', function(req, res) {
+    console.log(req.body);
+    res.send(req.body.level_id);
 });
 
 // gets a picture and saves it as a String in .js; .json
